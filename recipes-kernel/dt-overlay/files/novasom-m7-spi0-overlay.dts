@@ -1,0 +1,38 @@
+/*
+ * (C) Copyright 2019 Novasis Ingegneria
+ * Author: Geninatti Paolo <tech@pagit.eu>
+ *
+ * DTS Overlay plugin that enable SPI interface on general purpose board connector:
+ *  - pin19: SPI_TXD (was GPIO3_A1)
+ *  - pin21: SPI_RXD (was GPIO3_A2)
+ *  - pin23: SPI_CLK (was GPIO3_A0)
+ *  - pin24: SPI_SS1 (was GPIO3_B0)
+ *  - pin26: SPI_SS0 (was GPIO2_B4)
+ */
+ 
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3328-novasom-m7", "rockchip,rk3328";
+
+    /* identification */
+    part-number = "M7-SPI0";
+    version = "0100";
+
+	fragment@0 {
+        target-path = "/spi@ff190000";	
+        __overlay__ {
+            status = "okay";
+            max-freq = <48000000>; /* spi internal clk, don't modify */
+            
+            spi_dev@0 {
+                compatible = "rockchip,spidev";
+                reg = <0>;
+                spi-max-frequency = <12000000>;
+                spi-lsb-first;
+            };
+        };
+    };
+};
+

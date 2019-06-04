@@ -1,0 +1,28 @@
+/*
+ * (C) Copyright 2019 Novasis Ingegneria
+ * Author: Geninatti Paolo <tech@pagit.eu>
+ *
+ * DTS Overlay plugin that enable I2C interface on general purpose board connector:
+ *  - pin3: SDA (was GPIO2_D1)
+ *  - pin5: SCL (was GPIO2_D0)
+ */
+ 
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3328-novasom-m7", "rockchip,rk3328";
+
+    /* identification */
+    part-number = "M7-I2C0";
+    version = "0100";
+
+	fragment@0 {
+        target-path = "/i2c@ff150000";	
+        __overlay__ {
+	        status = "okay";
+            clock-frequency = <100000>;
+        };
+    };
+};
+

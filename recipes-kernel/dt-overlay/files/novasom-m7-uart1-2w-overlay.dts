@@ -1,0 +1,29 @@
+/*
+ * (C) Copyright 2019 Novasis Ingegneria
+ * Author: Geninatti Paolo <tech@pagit.eu>
+ *
+ * DTS Overlay plugin that enable UART1 interface on general purpose board connector:
+ *  - pin15: UART1_TX (was GPIO3_A4)
+ *  - pin18: UART1_RX (was GPIO3_A6)
+ */
+ 
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3328-novasom-m7", "rockchip,rk3328";
+
+    /* identification */
+    part-number = "M7-UART1-2W";
+    version = "0100";
+
+	fragment@0 {
+        target-path = "/serial@ff120000";	
+        __overlay__ {
+            status = "okay";
+            pinctrl-names = "default";
+            pinctrl-0 = <0x0000002c>;
+        };
+    };
+};
+
